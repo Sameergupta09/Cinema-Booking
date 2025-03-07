@@ -146,40 +146,33 @@ const Theater = ({ theaterId, movies, selectedDate, filterMovie, setSelectedDate
 	}
 
 	return (
-		<div className="flex flex-col">
-			<div className="flex md:justify-between">
-				<h3
-					className={`flex w-fit items-center rounded-tl-2xl bg-gradient-to-br from-gray-800 to-gray-700 px-6 py-0.5 text-2xl font-bold text-white md:rounded-t-2xl md:px-8 ${
-						auth.role !== 'admin' && 'rounded-t-2xl'
-					}`}
-				>
-					{theater.number}
-				</h3>
-				{auth.role === 'admin' && (
-					<div className="flex w-fit flex-col gap-x-3 rounded-tr-2xl bg-gradient-to-br from-indigo-800 to-blue-700 px-4 py-0.5 font-semibold text-white md:flex-row md:gap-x-6 md:rounded-t-2xl md:text-lg md:font-bold">
-						<div className="flex items-center gap-2">
-							<ArrowsUpDownIcon className="h-5 w-5" />
-							{theater?.seatPlan?.row === 'A' ? (
-								<h4>Row : A</h4>
-							) : (
-								<h4>Row : A - {theater?.seatPlan?.row}</h4>
-							)}
-						</div>
-						<div className="flex items-center gap-2">
-							<ArrowsRightLeftIcon className="h-5 w-5" />
-							{theater?.seatPlan?.column === 1 ? (
-								<h4>Column : 1</h4>
-							) : (
-								<h4>Column : 1 - {theater?.seatPlan?.column}</h4>
-							)}
-						</div>
-						<div className="flex items-center gap-2">
-							<UserIcon className="h-5 w-5" />
-							{(rowToNumber(theater.seatPlan.row) * theater.seatPlan.column).toLocaleString('en-US')}{' '}
-							Seats
-						</div>
-					</div>
+<div className="flex flex-col bg-white shadow-lg rounded-2xl p-6">
+	<div className="flex md:justify-between items-center">
+		<h3
+			className={`flex w-fit items-center rounded-tl-2xl bg-gradient-to-br from-gray-900 to-gray-700 px-6 py-2 text-2xl font-bold text-white md:rounded-t-2xl md:px-8`}
+		>
+			{theater.number}
+		</h3>
+		{auth.role === 'admin' && (
+			<div className="flex w-fit flex-col md:flex-row gap-4 rounded-tr-2xl bg-gradient-to-br from-indigo-700 to-blue-500 px-4 py-1 font-semibold text-white text-lg md:rounded-t-2xl md:font-bold shadow-md">
+				<div className="flex items-center gap-2">
+					<ArrowsUpDownIcon className="h-5 w-5 text-white" />
+					<h4>Row: {theater?.seatPlan?.row === 'A' ? 'A' : `A - ${theater?.seatPlan?.row}`}</h4>
+				</div>
+				<div className="flex items-center gap-2">
+					<ArrowsRightLeftIcon className="h-5 w-5 text-white" />
+					<h4>Column: {theater?.seatPlan?.column === 1 ? '1' : `1 - ${theater?.seatPlan?.column}`}</h4>
+				</div>
+				<div className="flex items-center gap-2">
+					<UserIcon className="h-5 w-5 text-white" />
+					{(rowToNumber(theater.seatPlan.row) * theater.seatPlan.column).toLocaleString('en-US')} Seats
+				</div>
+			</div>
 				)}
+
+
+
+				
 			</div>
 			<div className="flex flex-col gap-4 rounded-b-md rounded-tr-md bg-gradient-to-br from-indigo-100 to-white py-4 md:rounded-tr-none">
 				{auth.role === 'admin' && (

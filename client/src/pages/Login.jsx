@@ -48,50 +48,53 @@ const Login = () => {
 	}
 
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-900 to-blue-500 py-12 px-4 sm:px-6 lg:px-8">
-			<div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-4 shadow-xl">
-				<div>
-					<h2 className="mt-4 text-center text-4xl font-extrabold text-gray-900">Login</h2>
-				</div>
-				<form className="mt-8 space-y-4" onSubmit={handleSubmit(onSubmit)}>
-					<input
-						name="username"
-						type="text"
-						autoComplete="username"
-						{...register('username', { required: true })}
-						className={inputClasses`${errors.username ? 'border-red-500' : ''}`}
-						placeholder="Username"
-					/>
-					{errors.username && <span className="text-sm text-red-500">Username is required</span>}
-					<input
-						name="password"
-						type="password"
-						autoComplete="current-password"
-						{...register('password', { required: true })}
-						className={inputClasses`${errors.password ? 'border-red-500' : ''}`}
-						placeholder="Password"
-					/>
-					{errors.password && <span className="text-sm text-red-500">Password is required</span>}
+<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-900 to-blue-500 py-12 px-4 sm:px-6 lg:px-8"
+style={{ backgroundImage: "url('../src/back-movie.jpg')" }}>
+    <div className="w-full max-w-md space-y-8 rounded-2xl bg-white/10 backdrop-blur-md p-6 shadow-2xl border border-white/20">
+        <div>
+            <h2 className="mt-4 text-center text-4xl font-extrabold text-white">Login</h2>
+        </div>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <input
+                name="username"
+                type="text"
+                autoComplete="username"
+                {...register('username', { required: true })}
+                className="appearance-none rounded-lg block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:border-blue-500 shadow-md"
+                placeholder="Username"
+            />
+            {errors.username && <span className="text-sm text-red-400">Username is required</span>}
 
-					<div>
-						{errorsMessage && <span className="text-sm text-red-500">{errorsMessage}</span>}
-						<button
-							type="submit"
-							className="mt-4 w-full rounded-md bg-blue-600 bg-gradient-to-br from-indigo-600 to-blue-500 py-2 px-4 font-medium text-white drop-shadow-md hover:bg-blue-700 hover:from-indigo-500 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:from-slate-500 disabled:to-slate-400"
-							disabled={isLoggingIn}
-						>
-							{isLoggingIn ? 'Processing...' : 'Login'}
-						</button>
-					</div>
-					<p className="text-right">
-						Don’t have an account?{' '}
-						<Link to={'/register'} className="font-bold text-blue-600">
-							Register here
-						</Link>
-					</p>
-				</form>
-			</div>
-		</div>
+            <input
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                {...register('password', { required: true })}
+                className="appearance-none rounded-lg block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:border-blue-500 shadow-md"
+                placeholder="Password"
+            />
+            {errors.password && <span className="text-sm text-red-400">Password is required</span>}
+
+            <div>
+                {errorsMessage && <span className="text-sm text-red-400">{errorsMessage}</span>}
+                <button
+                    type="submit"
+                    className="mt-4 w-full rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 py-3 px-4 font-semibold text-white drop-shadow-md transition-all duration-300 hover:scale-105 hover:from-indigo-500 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:from-gray-500 disabled:to-gray-400"
+                    disabled={isLoggingIn}
+                >
+                    {isLoggingIn ? 'Processing...' : 'Login'}
+                </button>
+            </div>
+            <p className="text-center text-white">
+                Don’t have an account?{' '}
+                <Link to={'/register'} className="font-bold text-blue-300 hover:underline">
+                    Register here
+                </Link>
+            </p>
+        </form>
+    </div>
+</div>
+
 	)
 }
 

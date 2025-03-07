@@ -3,38 +3,29 @@ import { memo, useState } from 'react'
 
 const Seat = ({ seat, setSelectedSeats, selectable, isAvailable }) => {
 	const [isSelected, setIsSelected] = useState(false)
-	return !isAvailable ? (
+
+	return (
 		<button
 			title={`${seat.row}${seat.number}`}
-			className="flex h-8 w-8 cursor-not-allowed items-center justify-center"
-		>
-			<div className="h-6 w-6 rounded bg-gray-500 drop-shadow-md"></div>
-		</button>
-	) : isSelected ? (
-		<button
-			title={`${seat.row}${seat.number}`}
-			className="flex h-8 w-8 items-center justify-center"
+			className={`flex h-10 w-10 items-center justify-center rounded-md border-2 transition-all ${
+				!isAvailable
+					? 'cursor-not-allowed bg-gray-400 border-gray-500'
+					: isSelected
+					? 'bg-blue-500 border-blue-700 text-white shadow-md'
+					: 'bg-white border-gray-300 hover:bg-gray-100 hover:shadow-lg'
+			}`}
 			onClick={() => {
-				setIsSelected(false)
-				setSelectedSeats((prev) => prev.filter((e) => e !== `${seat.row}${seat.number}`))
-			}}
-		>
-			<div className="flex h-6 w-6 items-center justify-center rounded bg-blue-500 drop-shadow-md">
-				<CheckIcon className="h-5 w-5 stroke-[3] text-white" />
-			</div>
-		</button>
-	) : (
-		<button
-			title={`${seat.row}${seat.number}`}
-			className={`flex h-8 w-8 items-center justify-center ${!selectable && 'cursor-not-allowed'}`}
-			onClick={() => {
-				if (selectable) {
+				if (!isAvailable) return
+				if (isSelected) {
+					setIsSelected(false)
+					setSelectedSeats((prev) => prev.filter((e) => e !== `${seat.row}${seat.number}`))
+				} else if (selectable) {
 					setIsSelected(true)
 					setSelectedSeats((prev) => [...prev, `${seat.row}${seat.number}`])
 				}
 			}}
 		>
-			<div className="h-6 w-6 rounded bg-white drop-shadow-md"></div>
+			{isSelected && <CheckIcon className="h-5 w-5 stroke-[3] text-white" />}
 		</button>
 	)
 }

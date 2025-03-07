@@ -1,10 +1,10 @@
-const Loading = () => {
+const Loading = ({ size = "w-12 h-12", text = "Loading..." }) => {
 	return (
-		<div className="p-6 text-center">
-			<div role="status">
+		<div className="flex flex-col items-center justify-center p-6 text-center">
+			<div role="status" className="flex flex-col items-center">
 				<svg
 					aria-hidden="true"
-					className="mr-2 inline h-8 w-8 animate-spin fill-gray-600 text-gray-200 dark:fill-gray-300 dark:text-gray-600"
+					className={`${size} animate-spin text-gray-200 dark:text-gray-600`}
 					viewBox="0 0 100 101"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +18,7 @@ const Loading = () => {
 						fill="currentFill"
 					/>
 				</svg>
-				<span className="sr-only">Loading...</span>
+				<span className="mt-2 text-sm font-medium text-gray-500">{text}</span>
 			</div>
 		</div>
 	)

@@ -361,3 +361,16 @@ cd client
 npm install
 npm run dev
 ```
+
+<!-- some pending works
+.movie schedule overlaps
+.date not showing more than 15 days
+.payment gateways 
+past dates will be visible
+
+
+
+
+username:admin1,sameer,user,user1
+pass: Admin@123,Sam@123,User@123,User@123
+-->

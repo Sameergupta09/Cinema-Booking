@@ -131,6 +131,7 @@ const Navbar = () => {
 					{auth.username && (
 						<p className="text-md whitespace-nowrap leading-none text-white">Welcome {auth.username}!</p>
 					)}
+					<UsersIcon className="h-6 w-6 text-white" />
 					{auth.token ? (
 						<button
 							className="rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 px-2 py-1 text-white drop-shadow-md hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400"
@@ -144,6 +145,7 @@ const Navbar = () => {
 							<Link to={'/login'}>Login</Link>
 						</button>
 					)}
+					
 				</div>
 			</>
 		)

@@ -45,96 +45,76 @@ const Register = () => {
 	}
 
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-900 to-blue-500 py-12 px-4 sm:px-6 lg:px-8">
-			<div className="w-full max-w-md space-y-8 rounded-2xl bg-white p-4 shadow-xl">
-				<div>
-					<h2 className="mt-4 text-center text-4xl font-extrabold text-gray-900">Register</h2>
-				</div>
-				<form className="mt-8 space-y-4" onSubmit={handleSubmit(onSubmit)}>
-				<input
-					name="username"
-					type="text"
-					autoComplete="username"
-					{...register('username', {
-						required: 'Username is required',
-						minLength: {
-							value: 3,
-							message: 'Username must be at least 3 characters long'
-						},
-						maxLength: {
-							value: 15,
-							message: 'Username cannot be more than 15 characters'
-						},
-						pattern: {
-							value: /^[a-zA-Z0-9_]+$/,
-							message: 'Username can only contain letters, numbers, and underscores'
-						}
-					})}
-					className={inputClasses`${errors.username ? 'border-red-500' : ''}`}
-					placeholder="Username"
-				/>
+		<div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-indigo-900 to-blue-500 py-12 px-4 sm:px-6 lg:px-8"
+		style={{ backgroundImage: "url('../src/back-movie.jpg')" }}>
+    <div className="w-full max-w-md space-y-8 rounded-2xl bg-white/10 backdrop-blur-md p-6 shadow-2xl border border-white/20">
+        <div>
+            <h2 className="mt-4 text-center text-4xl font-extrabold text-white">Register</h2>
+        </div>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <input
+                name="username"
+                type="text"
+                autoComplete="username"
+                {...register('username', {
+                    required: 'Username is required',
+                    minLength: { value: 3, message: 'Min 3 characters required' },
+                    maxLength: { value: 15, message: 'Max 15 characters allowed' },
+                    pattern: { value: /^[a-zA-Z0-9_]+$/, message: 'Only letters, numbers & underscores' }
+                })}
+                className="appearance-none rounded-lg block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:border-blue-500 shadow-md"
+                placeholder="Username"
+            />
+            {errors.username && <span className="text-sm text-red-400">{errors.username.message}</span>}
 
-					{errors.username && <span className="text-sm text-red-500">Username is required</span>}
-					<input
-						name="email"
-						type="email"
-						autoComplete="email"
-						{...register('email', {
-							required: 'Email is required',
-							pattern: {
-								value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-								message: 'Enter a valid email address'
-							}
-						})}
-						className={inputClasses`${errors.email ? 'border-red-500' : ''}`}
-						placeholder="Email"
-					/>
-    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+            <input
+                name="email"
+                type="email"
+                autoComplete="email"
+                {...register('email', {
+                    required: 'Email is required',
+                    pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, message: 'Enter a valid email' }
+                })}
+                className="appearance-none rounded-lg block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:border-blue-500 shadow-md"
+                placeholder="Email"
+            />
+            {errors.email && <span className="text-sm text-red-400">{errors.email.message}</span>}
 
-					{errors.username && <span className="text-sm text-red-500">Email is required</span>}
-					<input
-						name="password"
-						type="password"
-						autoComplete="current-password"
-						{...register('password', {
-							required: 'Password is required',
-							minLength: {
-								value: 6,
-								message: 'Password must be at least 6 characters long'
-							},
-							maxLength: {
-								value: 20,
-								message: 'Password cannot be more than 20 characters'
-							},
-							pattern: {
-								value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-								message: 'Password must include uppercase, lowercase, number, and special character'
-							}
-						})}
-						className={inputClasses`${errors.password ? 'border-red-500' : ''}`}
-						placeholder="Password"
-					/>
+            <input
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                {...register('password', {
+                    required: 'Password is required',
+                    minLength: { value: 6, message: 'Min 6 characters required' },
+                    maxLength: { value: 20, message: 'Max 20 characters allowed' },
+                    pattern: { value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/, message: 'Must include uppercase, lowercase, number & special char' }
+                })}
+                className="appearance-none rounded-lg block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:border-blue-500 shadow-md"
+                placeholder="Password"
+            />
+            {errors.password && <span className="text-sm text-red-400">{errors.password.message}</span>}
 
-					{errors.password && <span className="text-sm text-red-500">{errors.password?.message}</span>}
-					<div>
-						{errorsMessage && <span className="text-sm text-red-500">{errorsMessage}</span>}
-						<button
-							type="submit"
-							className="mt-4 w-full rounded-md bg-blue-600 bg-gradient-to-br from-indigo-600 to-blue-500 py-2 px-4 font-medium text-white drop-shadow-md hover:bg-blue-700 hover:from-indigo-500 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:from-slate-500 disabled:to-slate-400"
-							disabled={isRegistering}
-						>
-							{isRegistering ? 'Processing...' : 'Register'}
-						</button>
-					</div>
-					<p className="text-right">
-						Already have an account?{' '}
-						<Link to={'/login'} className="font-bold text-blue-600">
-							Login here
-						</Link>
-					</p>
-				</form>
-			</div>
-		</div>
+            <div>
+                {errorsMessage && <span className="text-sm text-red-400">{errorsMessage}</span>}
+                <button
+                    type="submit"
+                    className="mt-4 w-full rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 py-3 px-4 font-semibold text-white drop-shadow-md transition-all duration-300 hover:scale-105 hover:from-indigo-500 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:from-gray-500 disabled:to-gray-400"
+                    disabled={isRegistering}
+                >
+                    {isRegistering ? 'Processing...' : 'Register'}
+                </button>
+            </div>
+            <p className="text-center text-white">
+                Already have an account?{' '}
+                <Link to={'/login'} className="font-bold text-blue-300 hover:underline">
+                    Login here
+                </Link>
+            </p>
+        </form>
+    </div>
+</div>
+
 	)
 }
 

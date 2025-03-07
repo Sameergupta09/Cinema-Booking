@@ -89,48 +89,73 @@ const CinemaLists = ({
 
 	return (
 		<>
-			<div className="mx-4 flex h-fit flex-col gap-4 rounded-md bg-gradient-to-br from-indigo-200 to-blue-100 p-4 text-gray-900 drop-shadow-xl sm:mx-8 sm:p-6">
-				<form
-					className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2"
-					onSubmit={handleSubmit(onAddCinema)}
-				>
-					<h2 className="text-3xl font-bold">Cinema Lists</h2>
-					{auth.role === 'admin' && (
-						<div className="flex w-fit grow sm:justify-end">
-							<input
-								placeholder="Type a cinema name"
-								className="w-full grow rounded-l border border-gray-300 px-3 py-1 sm:max-w-xs"
-								required
-								{...register('name', { required: true })}
-							/>
-							<button
-								disabled={isAdding}
-								className="flex items-center whitespace-nowrap rounded-r-md bg-gradient-to-r from-indigo-600 to-blue-500 px-2 py-1 font-medium text-white hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400"
-							>
-								{isAdding ? 'Processing...' : 'ADD +'}
-							</button>
-						</div>
-					)}
-				</form>
-				<div className="relative">
-					<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-						<MagnifyingGlassIcon className="h-5 w-5 stroke-2 text-gray-500" />
-					</div>
-					<input
-						type="search"
-						className="block w-full rounded-lg border border-gray-300 p-2 pl-10 text-gray-900"
-						placeholder="Search cinema"
-						{...register('search')}
-					/>
-				</div>
-				{isFetchingCinemas ? (
-					<Loading />
-				) : (
-					<div className="flex flex-wrap items-center gap-3">
-						<CinemaLists cinemas={cinemas} />
-					</div>
-				)}
-			</div>
+			<div className="mx-4 flex h-fit flex-col gap-6 rounded-2xl bg-white/10 backdrop-blur-lg p-6 text-gray-900 shadow-2xl sm:mx-8 sm:p-8 border border-white/20">
+    <form className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3" onSubmit={handleSubmit(onAddCinema)}>
+        <h2 className="text-4xl font-extrabold text-white drop-shadow-md">Cinema Lists</h2>
+        {auth.role === 'admin' && (
+            <div className="flex w-fit grow sm:justify-end">
+                <input
+                    placeholder="Type a cinema name"
+                    className="w-full grow rounded-l-lg border border-gray-300 px-4 py-2 text-gray-900 focus:border-blue-500 focus:ring focus:ring-blue-300 sm:max-w-xs shadow-md"
+                    required
+                    {...register('name', { required: true })}
+                />
+                <button
+                    disabled={isAdding}
+                    className="flex items-center whitespace-nowrap rounded-r-lg bg-gradient-to-r from-indigo-600 to-blue-500 px-4 py-2 text-lg font-semibold text-white transition-all duration-300 hover:scale-105 hover:from-indigo-500 hover:to-blue-400 disabled:from-slate-500 disabled:to-slate-400 shadow-md"
+                >
+                    {isAdding ? 'Processing...' : 'ADD +'}
+                </button>
+            </div>
+        )}
+    </form>
+
+    {/* Search bar */}
+    <div className="relative">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+            <MagnifyingGlassIcon className="h-6 w-6 stroke-2 text-gray-500" />
+        </div>
+        <input
+            type="search"
+            className="block w-full rounded-lg border border-gray-300 bg-white/80 p-3 pl-12 text-gray-900 shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Search cinema"
+            {...register('search')}
+        />
+    </div>
+
+    {/* Cinema List */}
+    {isFetchingCinemas ? (
+        <Loading />
+    ) : (
+        <div className="flex flex-wrap items-center gap-4">
+            {cinemas?.length ? (
+                cinemas
+                    .filter((cinema) =>
+                        cinema.name.toLowerCase().includes(watch('search')?.toLowerCase() || '')
+                    )
+                    .map((cinema, index) => (
+                        <button
+                            key={index}
+                            className={`w-fit rounded-xl px-4 py-2 text-lg font-semibold transition-all duration-300 shadow-md ${
+                                cinemas[selectedCinemaIndex]?._id === cinema._id
+                                    ? 'bg-gradient-to-br from-indigo-800 to-blue-700 text-white drop-shadow-xl hover:scale-105'
+                                    : 'bg-gradient-to-br from-gray-200 to-gray-100 text-gray-900 hover:from-gray-300 hover:to-gray-200'
+                            }`}
+                            onClick={() => {
+                                setSelectedCinemaIndex(selectedCinemaIndex === index ? null : index);
+                                sessionStorage.setItem('selectedCinemaIndex', index);
+                            }}
+                        >
+                            {cinema.name}
+                        </button>
+                    ))
+            ) : (
+                <div className="text-lg font-medium text-gray-300">No cinemas found</div>
+            )}
+        </div>
+    )}
+</div>
+
 		</>
 	)
 }

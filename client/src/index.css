@@ -19,3 +19,7 @@ body {
 	width: auto !important; /* Firefox will set width as auto */
 	width: 350px; /* As IE6 ignores !important it will set width as 1000px; */
 }
+
+.w-8 {
+    width: 2.5rem;
+}
