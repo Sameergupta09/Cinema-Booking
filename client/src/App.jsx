@@ -13,7 +13,7 @@ import Search from './pages/Search'
 import Showtime from './pages/Showtime'
 import Tickets from './pages/Tickets'
 import User from './pages/User'
-import Payment from './pages/Payment'
+import Dashboard from './pages/Dashboard'
 
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL || 'http://localhost:8000'
 axios.defaults.withCredentials = true
@@ -47,7 +47,14 @@ function App() {
 				<Route path="/purchase/:id" element={<Purchase />} />
 				<Route path="/ticket" element={<Tickets />} />
 				<Route path="/schedule" element={<Schedule />} />
-				<Route path="/payment/:id" element={<Payment />} />
+				<Route
+					path="/dashboard"
+					element={
+						<AdminRoute>
+							<Dashboard />
+						</AdminRoute>
+					}
+				/>
 				<Route
 					path="/user"
 					element={
